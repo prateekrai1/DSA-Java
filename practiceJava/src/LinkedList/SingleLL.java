@@ -128,7 +128,38 @@ public class SingleLL {
     }
 
     //3 - Linked List Cycle Detection - Leetcode 141
-    public
+    public boolean hasCycle(Node head){
+        Node fastPointer = head;
+        Node slowPointer = head;
+        while(fastPointer != null && fastPointer.next != null){
+            fastPointer = fastPointer.next.next;
+            slowPointer = slowPointer.next;
+            if(fastPointer == slowPointer){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //4 - Length of Cycle in LinkedList
+    public int lengthOfaCycle(Node head){
+        Node fast = head;
+        Node slow = head;
+        int length = 0;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                Node temp = slow;
+                do{
+                    temp=temp.next;
+                    length++;
+                }
+                while (temp != slow);
+            }
+        }
+        return length;
+    }
 
     public static void main(String[] args) {
         SingleLL list1 = new SingleLL();

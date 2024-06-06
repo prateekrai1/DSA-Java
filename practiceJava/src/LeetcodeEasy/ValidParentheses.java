@@ -1,27 +1,45 @@
 package LeetcodeEasy;
 
+import java.util.Stack;
+
+
+
+//Valid Parentheses
+//Leetcode -  20
+//https://leetcode.com/problems/valid-parentheses/description/
+
 public class ValidParentheses {
     public static void main(String[] args) {
-        System.out.println(isValid("{[]}"));
+
+        System.out.println(isValid("{(({"));
     }
     static boolean isValid(String s){
-        boolean isvalid = true;
         if(s.isEmpty()){
             return false;
         }
-        for(int i=0; i<s.length()-1; i++) {
-            if (!(s.charAt(i) == '(') && (s.charAt(i + 1) == ')')) {
-                return false;
-            } else {
-                if (!(s.charAt(i) == '[') && (s.charAt(i + 1) == ']')) {
-                    return false;
-                } else {
-                    if (!(s.charAt(i) == '{') && (s.charAt(i + 1) == '}')) {
-                       return false;
+        Stack<Character> parantheses = new Stack<>();
+        for(char ch: s.toCharArray()){
+            if(ch == '(' || ch == '{' || ch == '['){
+                parantheses.push(ch);
+            }
+            else{
+                if(ch == '}'){
+                    if(parantheses.isEmpty() || parantheses.pop() != '{'){
+                        return false;
+                    }
+                }
+                if(ch == ')'){
+                    if(parantheses.isEmpty() || parantheses.pop() != '('){
+                        return false;
+                    }
+                }
+                if(ch == ']'){
+                    if(parantheses.isEmpty() || parantheses.pop() != '['){
+                        return false;
                     }
                 }
             }
         }
-        return isvalid;
+        return parantheses.isEmpty();
     }
 }
